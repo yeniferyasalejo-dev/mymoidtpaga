@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mymoid + Tpaga | Recibe pagos en Colombia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Tpaga colors */
+      --tpaga-blue: #0fa1d7;
+      --tpaga-dark: #1a223a;
+      --tpaga-dark-alt: #16233d;
+
+      /* Mymoid gradient colors */
+      --mymoid-green: #2dd97a;
+      --mymoid-blue: #4f46e5;
+      --mymoid-purple: #a855f7;
+      --mymoid-pink: #ec4899;
+      --mymoid-orange: #f97316;
+
+      /* UI */
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #0f1424;
+      --bg-card: #151b2e;
+      --bg-card-hover: #1c2440;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --gradient-brand: linear-gradient(135deg, var(--mymoid-green), var(--tpaga-blue), var(--mymoid-purple), var(--mymoid-pink));
+      --gradient-cta: linear-gradient(135deg, var(--tpaga-blue), var(--mymoid-purple));
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 24px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ============================================
+       UTILITY
+       ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .gradient-text {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .fade-in-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ============================================
+       NAV
+       ============================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-logos .logo-mymoid {
+      height: 32px;
+      width: auto;
+    }
+
+    .nav-logos .divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .nav-logos .logo-tpaga {
+      height: 26px;
+      width: auto;
+    }
+
+    .nav-logos .logo-tpaga path,
+    .nav-logos .logo-tpaga g {
+      fill: #ffffff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .btn-nav {
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--gradient-cta);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px rgba(15, 161, 215, 0.3);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 120px 0 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero-bg .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.3;
+    }
+
+    .hero-bg .orb-1 {
+      width: 600px;
+      height: 600px;
+      background: var(--tpaga-blue);
+      top: -200px;
+      right: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-bg .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: var(--mymoid-purple);
+      bottom: -150px;
+      left: -100px;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+
+    .hero-bg .orb-3 {
+      width: 300px;
+      height: 300px;
+      background: var(--mymoid-green);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: float 12s ease-in-out infinite;
+      opacity: 0.15;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(30px, -30px); }
+      66% { transform: translate(-20px, 20px); }
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 560px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 100px;
+      background: rgba(15, 161, 215, 0.1);
+      border: 1px solid rgba(15, 161, 215, 0.2);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tpaga-blue);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--tpaga-blue);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 600;
+      background: var(--gradient-cta);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(15, 161, 215, 0.35);
+    }
+
+    .btn-primary svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-primary:hover svg {
+      transform: translateX(4px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 600;
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    /* Hero visual - Payment card mockup */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .payment-card {
+      width: 380px;
+      background: linear-gradient(145deg, var(--bg-card), var(--bg-card-hover));
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+      position: relative;
+      z-index: 2;
+      animation: cardFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .payment-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .payment-card-header .status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #22c55e;
+    }
+
+    .payment-card-header .status .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .payment-card-amount {
+      margin-bottom: 8px;
+    }
+
+    .payment-card-amount .label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .payment-card-amount .value {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .payment-card-amount .currency {
+      font-size: 18px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    .payment-card-meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .payment-card-meta .item {
+      flex: 1;
+    }
+
+    .payment-card-meta .item .label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .payment-card-meta .item .val {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .payment-card-bar {
+      margin-top: 24px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    .payment-card-bar .fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 2px;
+      background: var(--gradient-brand);
+      animation: barFill 2s ease 1s forwards;
+    }
+
+    @keyframes barFill {
+      to { width: 100%; }
+    }
+
+    /* Floating stats around card */
+    .floating-stat {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      z-index: 3;
+      animation: floatStat 5s ease-in-out infinite;
+    }
+
+    .floating-stat.stat-1 {
+      top: 10%;
+      right: -20px;
+      animation-delay: 0.5s;
+    }
+
+    .floating-stat.stat-2 {
+      bottom: 15%;
+      left: -30px;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes floatStat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .floating-stat .icon-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .floating-stat .stat-text .num {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .floating-stat .stat-text .desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ============================================
+       LOGOS / TRUST BAR
+       ============================================ */
+    .trust-bar {
+      padding: 60px 0;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .trust-bar .container {
+      text-align: center;
+    }
+
+    .trust-bar p {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 32px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .trust-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      opacity: 0.4;
+    }
+
+    .trust-logos span {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       PARTNERSHIP SECTION
+       ============================================ */
+    .partnership {
+      padding: 120px 0;
+    }
+
+    .partnership .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .partnership-visual {
+      position: relative;
+    }
+
+    .partnership-logos-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      position: relative;
+    }
+
+    .partnership-logos-display .logo-box {
+      width: 140px;
+      height: 140px;
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .partnership-logos-display .logo-box.mymoid-box {
+      background: linear-gradient(145deg, rgba(45, 217, 122, 0.08), rgba(79, 70, 229, 0.08));
+      border: 1px solid rgba(45, 217, 122, 0.15);
+    }
+
+    .partnership-logos-display .logo-box.tpaga-box {
+      background: linear-gradient(145deg, rgba(15, 161, 215, 0.08), rgba(15, 161, 215, 0.15));
+      border: 1px solid rgba(15, 161, 215, 0.15);
+    }
+
+    .partnership-logos-display .logo-box img,
+    .partnership-logos-display .logo-box svg {
+      max-height: 48px;
+      width: auto;
+    }
+
+    .partnership-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .partnership-connector .line {
+      width: 60px;
+      height: 2px;
+      background: var(--gradient-brand);
+      border-radius: 1px;
+    }
+
+    .partnership-connector .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--gradient-cta);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .partnership-connector .icon svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tpaga-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .section-desc {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .check-list li .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(15, 161, 215, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .check-list li .check svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* ============================================
+       FEATURES
+       ============================================ */
+    .features {
+      padding: 120px 0;
+      background: var(--bg-secondary);
+    }
+
+    .features .container > .section-label,
+    .features .container > .section-title,
+    .features .container > .section-desc {
+      text-align: center;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(15, 161, 215, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-card .icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       HOW IT WORKS
+       ============================================ */
+    .how-it-works {
+      padding: 120px 0;
+    }
+
+    .how-it-works .section-label,
+    .how-it-works .section-title {
+      text-align: center;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 64px;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 48px;
+      left: 16.6%;
+      right: 16.6%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--tpaga-blue), var(--mymoid-purple), var(--mymoid-orange));
+      opacity: 0.3;
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 24px;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step:nth-child(1) .step-number {
+      background: linear-gradient(135deg, rgba(15, 161, 215, 0.15), rgba(15, 161, 215, 0.05));
+      border: 2px solid rgba(15, 161, 215, 0.3);
+      color: var(--tpaga-blue);
+    }
+
+    .step:nth-child(2) .step-number {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.05));
+      border: 2px solid rgba(168, 85, 247, 0.3);
+      color: var(--mymoid-purple);
+    }
+
+    .step:nth-child(3) .step-number {
+      background: linear-gradient(135deg, rgba(45, 217, 122, 0.15), rgba(45, 217, 122, 0.05));
+      border: 2px solid rgba(45, 217, 122, 0.3);
+      color: var(--mymoid-green);
+    }
+
+    .step h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       STATS
+       ============================================ */
+    .stats {
+      padding: 80px 0;
+      background: var(--bg-secondary);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 32px;
+    }
+
+    .stat-item .num {
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .stat-item .desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* ============================================
+       METHODS SECTION
+       ============================================ */
+    .methods {
+      padding: 120px 0;
+    }
+
+    .methods .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .methods-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .method-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .method-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(15, 161, 215, 0.2);
+    }
+
+    .method-card .method-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .method-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .method-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ============================================
+       CTA
+       ============================================ */
+    .cta {
+      padding: 120px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .cta-bg .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.2;
+    }
+
+    .cta-bg .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: var(--tpaga-blue);
+      top: -100px;
+      left: 20%;
+    }
+
+    .cta-bg .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--mymoid-purple);
+      bottom: -100px;
+      right: 20%;
+    }
+
+    .cta .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta .section-title {
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta .section-desc {
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta .hero-cta {
+      justify-content: center;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      padding: 60px 0 40px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 300px;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--text-primary);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 1024px) {
+      .hero .container {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .payment-card {
+        width: 340px;
+        margin: 0 auto;
+      }
+
+      .partnership .container,
+      .methods .container {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-primary, .btn-secondary {
+        justify-content: center;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .steps::before {
+        display: none;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .methods-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .floating-stat {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAV
+       ============================================ -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <div class="nav-logos">
+        <!-- Mymoid Logo (SVG inline) -->
+        <svg class="logo-mymoid" viewBox="0 0 120 40" height="32">
+          <defs>
+            <linearGradient id="mymoid-grad-left" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#2dd97a"/>
+              <stop offset="50%" stop-color="#4f46e5"/>
+              <stop offset="100%" stop-color="#2dd97a"/>
+            </linearGradient>
+            <linearGradient id="mymoid-grad-mid" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4f46e5"/>
+              <stop offset="50%" stop-color="#a855f7"/>
+              <stop offset="100%" stop-color="#ec4899"/>
+            </linearGradient>
+            <linearGradient id="mymoid-grad-right" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ec4899"/>
+              <stop offset="100%" stop-color="#f97316"/>
+            </linearGradient>
+          </defs>
+          <!-- M shape -->
+          <rect x="2" y="4" width="8" height="32" rx="4" fill="url(#mymoid-grad-left)"/>
+          <rect x="14" y="10" width="7" height="12" rx="3.5" fill="url(#mymoid-grad-mid)" transform="rotate(-20, 17.5, 16)"/>
+          <rect x="23" y="10" width="7" height="12" rx="3.5" fill="url(#mymoid-grad-mid)" transform="rotate(20, 26.5, 16)"/>
+          <rect x="34" y="4" width="8" height="32" rx="4" fill="url(#mymoid-grad-right)"/>
+          <!-- Text -->
+          <text x="50" y="27" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="white">mymoid</text>
+        </svg>
+        <div class="divider"></div>
+        <!-- Tpaga logo from file, with white override -->
+        <svg class="logo-tpaga" viewBox="0 0 221 60.759" height="26">
+          <defs>
+            <clipPath id="nav-clip-path">
+              <rect width="221" height="60.759" fill="none"/>
+            </clipPath>
+          </defs>
+          <g clip-path="url(#nav-clip-path)">
+            <g>
+              <g clip-path="url(#nav-clip-path)">
+                <g>
+                  <path d="M2.927,25.862,36.505,36.784s9.446-2.558,9.446-4.041V17.02c0-2.457-2-4.686-5.109-5.7L7.026.322C3.732-.749,0,.985,0,3.587V22.6C0,24,1.146,25.282,2.927,25.862" fill="#0fa1d7"/>
+                  <path d="M59.757,32.83s7.542-2.284,7.557-6.34V36.944Z" transform="translate(-21.363 -9.47)" fill="rgba(255,255,255,0.3)"/>
+                  <path d="M45.952,46.651V39.174c0-2.6-3.732-4.336-7.026-3.265l-36,11.71C1.146,48.2,0,49.476,0,50.884V61.6Z" transform="translate(0 -12.722)" fill="white"/>
+                  <path d="M0,72.79v5.06c0,2.6,3.732,4.336,7.026,3.265l36-11.71c1.782-.58,2.927-1.857,2.927-3.265v-8.3Z" transform="translate(0 -20.678)" fill="white"/>
+                </g>
+                <path d="M113.68,53.365a12.455,12.455,0,0,1-7.1,1.9c-7.1,0-11.231-3.632-11.231-10.785V31.467H90.714V24.761h4.638V16.374h8.716v8.387h7.488v6.705h-7.488v12.9c0,2.571,1.4,3.967,3.745,3.967a5.878,5.878,0,0,0,3.52-1.117Z" transform="translate(-32.429 -5.853)" fill="white"/>
+                <path d="M166.856,44.2c0,9.443-6.538,15.478-14.976,15.478a11.67,11.67,0,0,1-9.052-3.632V70.074h-8.717v-40.9h8.326v3.464c2.179-2.626,5.42-3.912,9.443-3.912,8.438,0,14.976,6.035,14.976,15.479m-8.829,0c0-5.2-3.3-8.326-7.655-8.326s-7.656,3.13-7.656,8.326,3.3,8.326,7.656,8.326,7.655-3.129,7.655-8.326" transform="translate(-47.944 -10.268)" fill="white"/>
+                <path d="M218.932,42.079V59.233h-8.158V55.49c-1.62,2.738-4.749,4.19-9.164,4.19-7.041,0-11.232-3.911-11.232-9.108,0-5.308,3.744-9,12.908-9h6.929c0-3.744-2.235-5.923-6.929-5.923a14.455,14.455,0,0,0-8.661,2.794l-3.129-6.09c3.3-2.347,8.158-3.632,12.963-3.632,9.164,0,14.473,4.246,14.473,13.355m-8.717,7.655V46.661h-5.979c-4.079,0-5.364,1.509-5.364,3.52,0,2.179,1.844,3.631,4.917,3.631,2.905,0,5.42-1.341,6.426-4.079" transform="translate(-68.058 -10.268)" fill="white"/>
+                <path d="M274.675,29.171V54.2c0,11.175-6.035,16.316-16.876,16.316-5.7,0-11.231-1.4-14.751-4.135l3.464-6.258a17.971,17.971,0,0,0,10.617,3.408c6.147,0,8.829-2.794,8.829-8.214V54.037c-2.291,2.515-5.588,3.744-9.5,3.744-8.326,0-15.031-5.756-15.031-14.528s6.705-14.528,15.031-14.528c4.191,0,7.656,1.4,9.947,4.3V29.171ZM266.07,43.252c0-4.414-3.3-7.376-7.879-7.376s-7.934,2.962-7.934,7.376,3.353,7.376,7.934,7.376,7.879-2.961,7.879-7.376" transform="translate(-86.308 -10.268)" fill="white"/>
+                <path d="M328.076,42.079V59.233h-8.158V55.49c-1.62,2.738-4.749,4.19-9.164,4.19-7.04,0-11.232-3.911-11.232-9.108,0-5.308,3.744-9,12.908-9h6.929c0-3.744-2.235-5.923-6.929-5.923a14.455,14.455,0,0,0-8.661,2.794l-3.129-6.09c3.3-2.347,8.158-3.632,12.963-3.632,9.164,0,14.473,4.246,14.473,13.355m-8.717,7.655V46.661H313.38c-4.079,0-5.364,1.509-5.364,3.52,0,2.179,1.844,3.631,4.917,3.631,2.905,0,5.42-1.341,6.426-4.079" transform="translate(-107.076 -10.268)" fill="white"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="nav-links">
+        <a href="#features">Funcionalidades</a>
+        <a href="#how-it-works">Como funciona</a>
+        <a href="#methods">Metodos de pago</a>
+        <button class="btn-nav">Empezar ahora</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================
+       HERO
+       ============================================ -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content fade-in">
+        <div class="hero-badge">
+          <span class="pulse"></span>
+          Nueva alianza
+        </div>
+        <h1>Tu mejor aliado para <span class="gradient-text">recibir pagos</span> en Colombia</h1>
+        <p>Mymoid, ahora con el respaldo de Tpaga, se convierte en la plataforma de pagos mas completa para tu negocio en Colombia. Acepta todos los metodos de pago locales con una sola integracion.</p>
+        <div class="hero-cta">
+          <button class="btn-primary">
+            Comenzar gratis
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <button class="btn-secondary">Ver documentacion</button>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-in-right">
+        <div class="payment-card">
+          <div class="payment-card-header">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="rgba(15,161,215,0.15)"/>
+              <path d="M10 16l4 4 8-8" stroke="#0fa1d7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="status">
+              <span class="dot"></span>
+              Aprobado
+            </div>
+          </div>
+          <div class="payment-card-amount">
+            <div class="label">Pago recibido</div>
+            <div class="value">$2.450.000 <span class="currency">COP</span></div>
+          </div>
+          <div class="payment-card-meta">
+            <div class="item">
+              <div class="label">Metodo</div>
+              <div class="val">PSE</div>
+            </div>
+            <div class="item">
+              <div class="label">Tiempo</div>
+              <div class="val">2.3s</div>
+            </div>
+            <div class="item">
+              <div class="label">Comision</div>
+              <div class="val">1.8%</div>
+            </div>
+          </div>
+          <div class="payment-card-bar">
+            <div class="fill"></div>
+          </div>
+        </div>
+
+        <!-- Floating stats -->
+        <div class="floating-stat stat-1">
+          <div class="icon-circle" style="background: rgba(34, 197, 94, 0.15);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"><path d="M12 19V5m-7 7 7-7 7 7"/></svg>
+          </div>
+          <div class="stat-text">
+            <div class="num" style="color: #22c55e;">+28%</div>
+            <div class="desc">Conversion</div>
+          </div>
+        </div>
+
+        <div class="floating-stat stat-2">
+          <div class="icon-circle" style="background: rgba(15, 161, 215, 0.15);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0fa1d7" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="stat-text">
+            <div class="num" style="color: var(--tpaga-blue);">99.9%</div>
+            <div class="desc">Uptime</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       TRUST BAR
+       ============================================ -->
+  <section class="trust-bar fade-in">
+    <div class="container">
+      <p>Empresas que confian en nosotros</p>
+      <div class="trust-logos">
+        <span>Rappi</span>
+        <span>Addi</span>
+        <span>Bold</span>
+        <span>Platzi</span>
+        <span>Merqueo</span>
+        <span>Frubana</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       PARTNERSHIP
+       ============================================ -->
+  <section class="partnership" id="partnership">
+    <div class="container">
+      <div class="partnership-visual fade-in-left">
+        <div class="partnership-logos-display">
+          <div class="logo-box mymoid-box">
+            <!-- Mymoid M icon -->
+            <svg viewBox="0 0 60 60" width="64" height="64">
+              <defs>
+                <linearGradient id="p-grad-l" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#2dd97a"/>
+                  <stop offset="100%" stop-color="#4f46e5"/>
+                </linearGradient>
+                <linearGradient id="p-grad-r" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#a855f7"/>
+                  <stop offset="100%" stop-color="#f97316"/>
+                </linearGradient>
+              </defs>
+              <rect x="6" y="8" width="12" height="44" rx="6" fill="url(#p-grad-l)"/>
+              <rect x="22" y="18" width="10" height="16" rx="5" fill="#a855f7" transform="rotate(-18, 27, 26)"/>
+              <rect x="30" y="18" width="10" height="16" rx="5" fill="#ec4899" transform="rotate(18, 35, 26)"/>
+              <rect x="42" y="8" width="12" height="44" rx="6" fill="url(#p-grad-r)"/>
+            </svg>
+          </div>
+
+          <div class="partnership-connector">
+            <div class="line"></div>
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </div>
+            <div class="line"></div>
+          </div>
+
+          <div class="logo-box tpaga-box">
+            <!-- Tpaga icon only -->
+            <svg viewBox="0 0 46 49" width="56" height="56">
+              <path d="M2.927,25.862,36.505,36.784s9.446-2.558,9.446-4.041V17.02c0-2.457-2-4.686-5.109-5.7L7.026.322C3.732-.749,0,.985,0,3.587V22.6C0,24,1.146,25.282,2.927,25.862" fill="#0fa1d7"/>
+              <path d="M45.952,46.651V39.174c0-2.6-3.732-4.336-7.026-3.265l-36,11.71C1.146,48.2,0,49.476,0,50.884V61.6Z" transform="translate(0 -12.722)" fill="#1a223a"/>
+              <path d="M0,72.79v5.06c0,2.6,3.732,4.336,7.026,3.265l36-11.71c1.782-.58,2.927-1.857,2.927-3.265v-8.3Z" transform="translate(0 -20.678)" fill="#1a223a"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-in-right">
+        <div class="section-label">La alianza</div>
+        <h2 class="section-title">Dos gigantes del pago, <span class="gradient-text">una sola plataforma</span></h2>
+        <p class="section-desc">La tecnologia de procesamiento de pagos de Mymoid, combinada con la infraestructura local y el conocimiento del mercado colombiano de Tpaga, crean la solucion de pagos mas robusta del pais.</p>
+        <ul class="check-list">
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#0fa1d7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span>Procesamiento local con Tpaga para PSE, Nequi y Daviplata</span>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#0fa1d7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span>API unificada de Mymoid para tarjetas internacionales</span>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#0fa1d7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span>Dashboard unificado para todos tus pagos</span>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#0fa1d7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span>Cumplimiento regulatorio colombiano garantizado</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FEATURES
+       ============================================ -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-label">Funcionalidades</div>
+      <h2 class="section-title">Todo lo que necesitas para <span class="gradient-text">recibir pagos</span></h2>
+      <p class="section-desc">Herramientas poderosas para gestionar, escalar y optimizar tus cobros en Colombia.</p>
+
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="icon-wrap" style="background: rgba(15, 161, 215, 0.1);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0fa1d7" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>Pagos instantaneos</h3>
+          <p>Recibe pagos en tiempo real con confirmacion inmediata. Procesamos transacciones en menos de 3 segundos.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="icon-wrap" style="background: rgba(168, 85, 247, 0.1);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          </div>
+          <h3>API simple</h3>
+          <p>Integra pagos en minutos con nuestra API RESTful. SDKs para JavaScript, Python, PHP, Ruby y mas.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="icon-wrap" style="background: rgba(45, 217, 122, 0.1);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2dd97a" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Seguridad PCI DSS</h3>
+          <p>Certificacion PCI DSS Nivel 1 y encriptacion de extremo a extremo para proteger cada transaccion.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="icon-wrap" style="background: rgba(249, 115, 22, 0.1);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12h6m-3-3v6"/></svg>
+          </div>
+          <h3>Pagos recurrentes</h3>
+          <p>Configura suscripciones y cobros automaticos. Ideal para SaaS, membresías y servicios periodicos.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="icon-wrap" style="background: rgba(236, 72, 153, 0.1);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg>
+          </div>
+          <h3>Dashboard en vivo</h3>
+          <p>Monitorea transacciones, ingresos y metricas clave con analytics en tiempo real.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="icon-wrap" style="background: rgba(99, 102, 241, 0.1);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m7.08 7.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m7.08-7.08l4.24-4.24"/></svg>
+          </div>
+          <h3>Soporte 24/7</h3>
+          <p>Equipo local en Colombia disponible en espanol para resolver cualquier incidencia al instante.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       HOW IT WORKS
+       ============================================ -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-label">Como funciona</div>
+      <h2 class="section-title">Empieza a cobrar en <span class="gradient-text">3 pasos</span></h2>
+
+      <div class="steps">
+        <div class="step fade-in">
+          <div class="step-number">1</div>
+          <h3>Crea tu cuenta</h3>
+          <p>Registrate en minutos con tu informacion basica. Sin costos de configuracion ni compromisos a largo plazo.</p>
+        </div>
+        <div class="step fade-in">
+          <div class="step-number">2</div>
+          <h3>Integra nuestra API</h3>
+          <p>Copia y pega unas pocas lineas de codigo o usa nuestros plugins para WooCommerce, Shopify y mas.</p>
+        </div>
+        <div class="step fade-in">
+          <div class="step-number">3</div>
+          <h3>Recibe pagos</h3>
+          <p>Acepta PSE, tarjetas, Nequi, Daviplata y mas. Recibe tus fondos en tu cuenta bancaria colombiana.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       STATS
+       ============================================ -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-in">
+          <div class="num gradient-text">$2B+</div>
+          <div class="desc">Procesados anualmente</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="num gradient-text">99.9%</div>
+          <div class="desc">Disponibilidad</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="num gradient-text">15K+</div>
+          <div class="desc">Comercios activos</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="num gradient-text">&lt;3s</div>
+          <div class="desc">Tiempo de respuesta</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       METHODS
+       ============================================ -->
+  <section class="methods" id="methods">
+    <div class="container">
+      <div class="fade-in-left">
+        <div class="section-label">Metodos de pago</div>
+        <h2 class="section-title">Todos los metodos que tus clientes <span class="gradient-text">prefieren</span></h2>
+        <p class="section-desc">Cubre el 100% del mercado colombiano con los metodos de pago locales e internacionales mas populares.</p>
+        <button class="btn-primary" style="margin-top: 8px;">
+          Ver todos los metodos
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <div class="methods-cards fade-in-right">
+        <div class="method-card">
+          <div class="method-icon">🏦</div>
+          <h4>PSE</h4>
+          <p>Debito bancario directo</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">💳</div>
+          <h4>Tarjetas</h4>
+          <p>Visa, Mastercard, Amex</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">📱</div>
+          <h4>Nequi</h4>
+          <p>Billetera digital</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">💰</div>
+          <h4>Daviplata</h4>
+          <p>Billetera Davivienda</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">🏪</div>
+          <h4>Efecty</h4>
+          <p>Pago en efectivo</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">🔄</div>
+          <h4>QR</h4>
+          <p>Codigo QR Bancolombia</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">🌎</div>
+          <h4>PayPal</h4>
+          <p>Pagos internacionales</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">⚡</div>
+          <h4>BNPL</h4>
+          <p>Compra ahora, paga despues</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       CTA
+       ============================================ -->
+  <section class="cta">
+    <div class="cta-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+    </div>
+    <div class="container fade-in">
+      <div class="section-label">Empieza hoy</div>
+      <h2 class="section-title">Listo para recibir pagos en <span class="gradient-text">Colombia?</span></h2>
+      <p class="section-desc">Unete a miles de empresas que ya confian en Mymoid + Tpaga para sus cobros. Sin costos de configuracion.</p>
+      <div class="hero-cta" style="margin-top: 40px;">
+        <button class="btn-primary">
+          Crear cuenta gratis
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <button class="btn-secondary">Hablar con ventas</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="nav-logos" style="margin-bottom:0;">
+            <svg viewBox="0 0 120 40" height="28">
+              <text x="4" y="27" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="white">mymoid</text>
+              <text x="74" y="27" font-family="Inter, sans-serif" font-size="10" font-weight="500" fill="#64748b">+ tpaga</text>
+            </svg>
+          </div>
+          <p>La plataforma de pagos mas completa para Colombia. Mymoid y Tpaga juntos para impulsar tu negocio.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Producto</h4>
+          <a href="#">Pagos online</a>
+          <a href="#">Suscripciones</a>
+          <a href="#">Links de pago</a>
+          <a href="#">Checkout</a>
+        </div>
+        <div class="footer-col">
+          <h4>Desarrolladores</h4>
+          <a href="#">Documentacion</a>
+          <a href="#">API Reference</a>
+          <a href="#">SDKs</a>
+          <a href="#">Plugins</a>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <a href="#">Nosotros</a>
+          <a href="#">Blog</a>
+          <a href="#">Contacto</a>
+          <a href="#">Soporte</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Mymoid + Tpaga. Todos los derechos reservados.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Terminos</a>
+          <a href="#">Privacidad</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================
+       JS
+       ============================================ -->
+  <script>
+    // Scroll animations (Intersection Observer)
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Staggered animation for feature cards
+    const cards = document.querySelectorAll('.feature-card');
+    cards.forEach((card, index) => {
+      card.style.transitionDelay = `${index * 0.1}s`;
+    });
+
+    // Staggered animation for steps
+    const steps = document.querySelectorAll('.step');
+    steps.forEach((step, index) => {
+      step.style.transitionDelay = `${index * 0.2}s`;
+    });
+
+    // Staggered animation for stats
+    const statItems = document.querySelectorAll('.stat-item');
+    statItems.forEach((item, index) => {
+      item.style.transitionDelay = `${index * 0.15}s`;
+    });
+  </script>
+</body>
+</html>
