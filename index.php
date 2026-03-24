@@ -625,13 +625,13 @@
     }
 
     .partnership-logos-display .logo-box.mymoid-box {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(145deg, #f0f4f8, #e2e8f0);
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     .partnership-logos-display .logo-box.tpaga-box {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(145deg, #f0f4f8, #e2e8f0);
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     .partnership-logos-display .logo-box img,
@@ -1211,7 +1211,7 @@
         <a href="#features">Funcionalidades</a>
         <a href="#how-it-works">Como funciona</a>
         <a href="#methods">Metodos de pago</a>
-        <button class="btn-nav">Empezar ahora</button>
+        <a href="https://tpaga.co/mymoid-ahora-con-el-respaldo-de-tpaga/" class="btn-nav" target="_blank">Empezar ahora</a>
       </div>
     </div>
   </nav>
@@ -1234,10 +1234,10 @@
         <h1>Tu mejor aliado para <span class="gradient-text">recibir pagos</span> en Colombia</h1>
         <p>Mymoid, ahora con el respaldo de Tpaga, se convierte en la plataforma de pagos mas completa para tu negocio en Colombia. Acepta todos los metodos de pago locales - desde tarjetas de credito, Bre-B, PSE, con una sola integracion.</p>
         <div class="hero-cta">
-          <button class="btn-primary">
+          <a href="https://tpaga.co/mymoid-ahora-con-el-respaldo-de-tpaga/" class="btn-primary" target="_blank">
             Comenzar ahora
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
+          </a>
         </div>
       </div>
 
@@ -1491,10 +1491,10 @@
       <h2 class="section-title">Listo para recibir pagos en <span class="gradient-text">Colombia?</span></h2>
       <p class="section-desc">Unete a miles de empresas que ya confian en Mymoid + Tpaga para sus cobros. Sin costos de configuracion.</p>
       <div class="hero-cta" style="margin-top: 40px;">
-        <button class="btn-primary">
+        <a href="https://tpaga.co/mymoid-ahora-con-el-respaldo-de-tpaga/" class="btn-primary" target="_blank">
           Comenzar ahora
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
+        </a>
       </div>
     </div>
   </section>
