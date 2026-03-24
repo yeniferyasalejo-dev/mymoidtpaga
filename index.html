@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mymoid + Tpaga | Recibe pagos en Colombia</title>
+  <meta name="description" content="Mymoid, ahora con el respaldo de Tpaga, se convierte en la plataforma de pagos más completa para tu negocio en Colombia. Acepta todos los métodos de pago locales - desde tarjetas de crédito, Bre-B, PSE, con una sola integración.">
+  <meta name="keywords" content="pagos Colombia, pasarela de pagos, PSE, tarjetas de crédito, Bre-B, Mymoid, Tpaga, cobros online, pagos digitales Colombia">
+  <meta property="og:title" content="Mymoid + Tpaga | Recibe pagos en Colombia">
+  <meta property="og:description" content="Mymoid, ahora con el respaldo de Tpaga, se convierte en la plataforma de pagos más completa para tu negocio en Colombia. Acepta tarjetas, Bre-B, PSE con una sola integración.">
+  <meta property="og:image" content="logo-mymoid-icon.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mymoid + Tpaga | Recibe pagos en Colombia">
+  <meta name="twitter:description" content="La plataforma de pagos más completa para tu negocio en Colombia. Acepta tarjetas, Bre-B, PSE con una sola integración.">
+  <meta name="twitter:image" content="logo-mymoid-icon.png">
+  <link rel="icon" type="image/png" href="logo-mymoid-icon.png">
+  <link rel="apple-touch-icon" href="logo-mymoid-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
