@@ -1021,7 +1021,7 @@
 
     .footer-top {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 48px;
       margin-bottom: 48px;
     }
@@ -1435,11 +1435,7 @@
       <div class="fade-in-left">
         <div class="section-label">Metodos de pago</div>
         <h2 class="section-title">Todos los metodos que tus clientes <span class="gradient-text">prefieren</span></h2>
-        <p class="section-desc">Cubre el 100% del mercado colombiano con los metodos de pago locales mas populares.</p>
-        <button class="btn-primary" style="margin-top: 8px;">
-          Ver todos los metodos
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
+        <p class="section-desc">Cubre el 100% del mercado colombiano con los metodos de pago locales más populares.</p>
       </div>
 
       <div class="methods-cards fade-in-right">
@@ -1452,6 +1448,31 @@
           <div class="method-icon">💳</div>
           <h4>Tarjetas</h4>
           <p>Visa, Mastercard, Amex</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">💵</div>
+          <h4>Pago en efectivo</h4>
+          <p>Efecty, Baloto y mas</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">🔄</div>
+          <h4>QR</h4>
+          <p>Codigo QR</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">🌎</div>
+          <h4>PayPal</h4>
+          <p>Pagos globales</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">⚡</div>
+          <h4>BNPL</h4>
+          <p>Compra ahora, paga despues</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">📱</div>
+          <h4>Billeteras moviles</h4>
+          <p>Pagos desde el celular</p>
         </div>
       </div>
     </div>
@@ -1491,27 +1512,6 @@
             <span style="font-size: 14px; font-weight: 600; color: var(--text-muted);">tpaga</span>
           </div>
           <p>La plataforma de pagos mas completa para Colombia. Mymoid y Tpaga juntos para impulsar tu negocio.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Producto</h4>
-          <a href="#">Pagos online</a>
-          <a href="#">Suscripciones</a>
-          <a href="#">Links de pago</a>
-          <a href="#">Checkout</a>
-        </div>
-        <div class="footer-col">
-          <h4>Desarrolladores</h4>
-          <a href="#">Documentacion</a>
-          <a href="#">API Reference</a>
-          <a href="#">SDKs</a>
-          <a href="#">Plugins</a>
-        </div>
-        <div class="footer-col">
-          <h4>Empresa</h4>
-          <a href="#">Nosotros</a>
-          <a href="#">Blog</a>
-          <a href="#">Contacto</a>
-          <a href="#">Soporte</a>
         </div>
       </div>
       <div class="footer-bottom">
