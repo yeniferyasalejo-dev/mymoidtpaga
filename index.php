@@ -1178,32 +1178,7 @@
   <nav class="nav" id="nav">
     <div class="container">
       <div class="nav-logos">
-        <!-- Mymoid Logo (SVG inline) -->
-        <svg class="logo-mymoid" viewBox="0 0 120 40" height="32">
-          <defs>
-            <linearGradient id="mymoid-grad-left" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#2dd97a"/>
-              <stop offset="50%" stop-color="#4f46e5"/>
-              <stop offset="100%" stop-color="#2dd97a"/>
-            </linearGradient>
-            <linearGradient id="mymoid-grad-mid" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#4f46e5"/>
-              <stop offset="50%" stop-color="#a855f7"/>
-              <stop offset="100%" stop-color="#ec4899"/>
-            </linearGradient>
-            <linearGradient id="mymoid-grad-right" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#ec4899"/>
-              <stop offset="100%" stop-color="#f97316"/>
-            </linearGradient>
-          </defs>
-          <!-- M shape -->
-          <rect x="2" y="4" width="8" height="32" rx="4" fill="url(#mymoid-grad-left)"/>
-          <rect x="14" y="10" width="7" height="12" rx="3.5" fill="url(#mymoid-grad-mid)" transform="rotate(-20, 17.5, 16)"/>
-          <rect x="23" y="10" width="7" height="12" rx="3.5" fill="url(#mymoid-grad-mid)" transform="rotate(20, 26.5, 16)"/>
-          <rect x="34" y="4" width="8" height="32" rx="4" fill="url(#mymoid-grad-right)"/>
-          <!-- Text -->
-          <text x="50" y="27" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="white">mymoid</text>
-        </svg>
+        <img src="logo-mymoid-text.png" alt="Mymoid" class="logo-mymoid" height="32">
         <div class="divider"></div>
         <!-- Tpaga logo from file, with white override -->
         <svg class="logo-tpaga" viewBox="0 0 221 60.759" height="26">
@@ -1257,7 +1232,7 @@
           Nueva alianza
         </div>
         <h1>Tu mejor aliado para <span class="gradient-text">recibir pagos</span> en Colombia</h1>
-        <p>Mymoid, ahora con el respaldo de Tpaga, se convierte en la plataforma de pagos mas completa para tu negocio en Colombia. Acepta todos los metodos de pago locales con una sola integracion.</p>
+        <p>Mymoid, ahora con el respaldo de Tpaga, se convierte en la plataforma de pagos mas completa para tu negocio en Colombia. Acepta todos los metodos de pago locales - desde tarjetas de credito, Bre-B, PSE, con una sola integracion.</p>
         <div class="hero-cta">
           <button class="btn-primary">
             Comenzar gratis
@@ -1351,23 +1326,7 @@
       <div class="partnership-visual fade-in-left">
         <div class="partnership-logos-display">
           <div class="logo-box mymoid-box">
-            <!-- Mymoid M icon -->
-            <svg viewBox="0 0 60 60" width="64" height="64">
-              <defs>
-                <linearGradient id="p-grad-l" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#2dd97a"/>
-                  <stop offset="100%" stop-color="#4f46e5"/>
-                </linearGradient>
-                <linearGradient id="p-grad-r" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#a855f7"/>
-                  <stop offset="100%" stop-color="#f97316"/>
-                </linearGradient>
-              </defs>
-              <rect x="6" y="8" width="12" height="44" rx="6" fill="url(#p-grad-l)"/>
-              <rect x="22" y="18" width="10" height="16" rx="5" fill="#a855f7" transform="rotate(-18, 27, 26)"/>
-              <rect x="30" y="18" width="10" height="16" rx="5" fill="#ec4899" transform="rotate(18, 35, 26)"/>
-              <rect x="42" y="8" width="12" height="44" rx="6" fill="url(#p-grad-r)"/>
-            </svg>
+            <img src="logo-mymoid-icon.png" alt="Mymoid" width="80" height="80" style="border-radius: 16px;">
           </div>
 
           <div class="partnership-connector">
@@ -1620,10 +1579,9 @@
       <div class="footer-top">
         <div class="footer-brand">
           <div class="nav-logos" style="margin-bottom:0;">
-            <svg viewBox="0 0 120 40" height="28">
-              <text x="4" y="27" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="white">mymoid</text>
-              <text x="74" y="27" font-family="Inter, sans-serif" font-size="10" font-weight="500" fill="#64748b">+ tpaga</text>
-            </svg>
+            <img src="logo-mymoid-text.png" alt="Mymoid" height="24">
+            <div class="divider"></div>
+            <span style="font-size: 14px; font-weight: 600; color: var(--text-muted);">tpaga</span>
           </div>
           <p>La plataforma de pagos mas completa para Colombia. Mymoid y Tpaga juntos para impulsar tu negocio.</p>
         </div>
